@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="common-sign-up">
+	<div class="modal fade" id="userWrite" tabindex="-1" role="dialog" aria-labelledby="userWriteTitle" aria-hidden="true">
+      <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content bg-dark text-light">
+          <div class="modal-header border-secondary">
+            <h5 class="modal-title" id="userWriteTitle" th:text="회원가입">sign-up</h5>
+            <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form th:object="${fuser!=null? fuser : new com.itwill.steam.user.User()}" name ="upForm" id="upForm" class="input-transparent">
+              <input type="hidden" th:value="${succYn}" id="succYn" />
+              <div class="form-group">
+              	<label>ID</label>
+                <input type="text" class="form-control border-secondary" name="uId" id="uId" placeholder="Id">
+                <font color="red" th:text="${msg}" id="checked"></font>
+              </div>
+              
+              <div class="form-group">
+              	<label>password</label>
+                <input type="password" class="form-control border-secondary" name="uPassword" id="uPassword" placeholder="Password">
+              </div>
+              
+              <div class="form-group">
+              	<label>Confirm password</label>  
+                <input type="password" class="form-control border-secondary" name="uPassword2" id="uPassword2" placeholder="Password">
+              </div>
+              
+              <div class="form-group">
+              	<label>name</label>  
+                <input type="text" class="form-control border-secondary" name="uName" id="uName" placeholder="UserName">
+              </div>
+              
+              <div class="form-group">
+ 	            <label>phone</label>  
+                <input type="text" class="form-control border-secondary" name="uPhone" id="uPhone" placeholder="UserPhone">
+              </div>
+              
+              <div class="form-group">
+              	<label>email</label>  
+                <input type="text" class="form-control border-secondary" name="uEmail" id="uEmail" placeholder="UserEmail">
+              </div>
+              
+              <div class="form-group mt-6">
+                <button type="button" class="btn btn-block btn-warning" onclick="userCreate();return false;" th:text="회원가입">sign-up</button>
+              </div>
+            </form>
+            <!-- 
+            <span class="small">Don't have an account? <a href="#">Create an account</a></span>
+             -->
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

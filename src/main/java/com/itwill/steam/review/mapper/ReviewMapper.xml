@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.steam.review.mapper.ReviewMapper">
+<resultMap type="com.itwill.steam.review.Review" id="review" autoMapping="true">
+	<id column="review_No" property="reviewNo"/>
+      <association property="game" javaType="com.itwill.steam.game.Game" autoMapping="true">
+       <collection property="resourcesList" ofType="com.itwill.steam.resources.Resources" autoMapping="true">
+      </collection> 
+		</association>
+</resultMap>	
+	
+		
+	<!-- 게임 리뷰 작성 -->
+	<insert id="insertGameReview" parameterType="com.itwill.steam.review.Review">
+		<selectKey resultType="java.lang.Integer" keyProperty="reviewNo" order="BEFORE">
+			select review_review_no_seq.nextval from dual
+		</selectKey>
+			insert into review(review_no, review_created_at, review_updated_at, review_comment, review_recommend, review_like, review_dislike, u_no, g_no) 
+			values(#{reviewNo}, sysdate, sysdate, #{reviewComment}, #{reviewRecommend}, 0, 0, #{user.uNo}, #{game.gNo})
+	</insert>
+		
+	<!-- 게임 리뷰 삭제 -->
+	<delete id="deleteGameReview">
+		delete from review where review_no=#{reviewNo}
+	</delete>
+	
+	<!-- 게임 리뷰 수정 -->
+	<update id="updateGameReview" parameterType="com.itwill.steam.review.Review">
+		update review set review_updated_at=sysdate, review_comment=#{reviewComment}, review_recommend=#{reviewRecommend} where review_no=#{reviewNo}
+	</update>
+	
+	<!-- 회원번호로 리뷰 전체보기 -->
+	<select id="selectByUserNo" parameterType="com.itwill.steam.user.User" resultMap="review">
+		select 
+			*
+		from review r
+		join resources rs
+		on r.g_no=rs.g_no
+		where r.u_no=#{uNo}
+	</select>
+	
+	<!-- 게임번호로 리뷰 전체보기 -->
+	<select id="selectByGameNo" parameterType="com.itwill.steam.game.Game" resultType="com.itwill.steam.review.Review">
+		select * from review where g_no=#{gNo}
+	</select>
+
+	<!-- 리뷰 최신등록순 정렬보기 -->
+	<select id="selectByDateDesc" parameterType="com.itwill.steam.game.Game" resultMap="ReviewWithUserDateResultMap">
+		select r.*,
+		u.u_nickname as u_nickname,
+		u.u_img_profile as u_img_profile
+		from review r
+		join userinfo u on r.u_no = u.u_no
+		where r.g_no=#{gNo}
+		order by r.review_created_at desc, r.review_updated_at desc
+	</select>
+	<!-- Review와 User를 조인한 결과를 매핑하는 ResultMap -->
+	<resultMap type="com.itwill.steam.review.Review" id="ReviewWithUserDateResultMap">
+		<id property="reviewNo" column="review_no" />
+		<result property="reviewCreatedAt" column="review_created_at" />
+		<result property="reviewUpdatedAt" column="review_updated_at" />
+		<result property="reviewComment" column="review_comment" />
+		<result property="reviewRecommend" column="review_recommend" />
+		<result property="reviewLike" column="review_like" />
+		<result property="reviewDisLike" column="review_dislike" />
+		<association property="user" javaType="com.itwill.steam.user.User">
+			<result property="uNickname" column="u_nickname" />
+			<result property="uImgProfile" column="u_img_profile" />
+		</association>
+	</resultMap>
+		
+	<!-- 추천수 많은 리뷰 정렬보기 -->
+	<select id="selectByLikeDesc" parameterType="com.itwill.steam.game.Game" resultMap="ReviewWithUserLikeResultMap">
+		select r.*,
+		u.u_nickname as u_nickname
+		from review r
+		join userinfo u on r.u_no = u.u_no
+		where r.g_no=#{gNo} 
+		order by r.review_like desc, r.review_dislike asc
+	</select>
+	<resultMap type="com.itwill.steam.review.Review" id="ReviewWithUserLikeResultMap">
+    <id property="reviewNo" column="review_no" />
+    <result property="reviewCreatedAt" column="review_created_at" />
+    <result property="reviewUpdatedAt" column="review_updated_at" />
+    <result property="reviewComment" column="review_comment" />
+    <result property="reviewRecommend" column="review_recommend" />
+    <result property="reviewLike" column="review_like" />
+    <result property="reviewDisLike" column="review_dislike" />
+    <association property="user" javaType="com.itwill.steam.user.User">
+        <result property="uNickname" column="u_nickname" />
+    </association>
+	</resultMap>
+	
+	<!-- 게시글 좋아요 -->
+	<update id="updateReviewLike">
+		update review set review_like = review_like + 1 where review_no = #{reviewNo}
+	</update>
+	
+	<!-- 게시글 싫어요 -->
+	<update id="updateReviewDisLike">
+		update review set review_dislike = review_dislike + 1 where review_no = #{reviewNo}
+	</update>
+	
+	<select id="selectByReviewNo" parameterType="int" resultType="com.itwill.steam.review.Review">
+		 select * from review where review_no = #{reviewNo}
+	</select>
+	
+	
+</mapper>

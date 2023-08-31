@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+#isExistedLibraryC {
+	cursor:default;
+}
+
+#reviewDiv {
+	flex-wrap: nowrap;
+}

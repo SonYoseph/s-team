@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wicodus - Contact</title>
+
+    <!-- CSS -->
+    <link href="assets/css/fonts/etline-font.min.css" rel="stylesheet">
+    <link href="assets/css/fonts/fontawesome/all.min.css" rel="stylesheet">
+    <link href="assets/css/fonts/pe-icon-7-stroke.css" rel="stylesheet">
+    <link href="assets/css/fonts/themify-icons.css" rel="stylesheet">
+
+    <link href="assets/plugins/owl.carousel/owl.carousel.min.css" rel="stylesheet">
+    <link href="assets/plugins/slick/slick.css" rel="stylesheet">
+
+    <link href="assets/css/main.css" rel="stylesheet">
+    <link href="assets/css/styles.css" rel="stylesheet">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+    <link rel="icon" href="assets/img/favicon.png">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Custom CSS -->
+    
+  </head>
+  <body class="page-body">
+  
+    <!-- navbar -->
+    <th:block th:if="${session.loginUser==null}">
+    	<div id="common-navbar" th:include="common-navbar::common-navbar"></div>
+    </th:block>
+    <th:block th:unless="${session.loginUser==null}">
+    	<div id="common-navbar-login" th:include="common-navbar-login::common-navbar-login"></div>
+    </th:block>
+    <!-- /.navbar -->
+
+	<!-- main content -->
+    <main class="main-content">
+
+      <!-- content area -->
+      <section class="content-section">
+        <div class="container">
+          <div class="row gutters-y">
+            <div class="col-lg-7 text-light">
+              <div class="mb-6">
+                <h3>Contact Us</h3>
+                <p class="lead-1">Morbi aliquet felis nec nisl congue interdum. Quisque vitae sapien ullamcorper.</p>
+              </div>
+              <form data-form="contact_form" action="assets/php/contact-form.php" class="input-transparent" method="POST">
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <input class="form-control form-control-lg" type="text" name="name" placeholder="Your Name" required>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                      <input class="form-control form-control-lg" type="email" name="email" placeholder="Your Email Address" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <input name="subject" type="text" class="form-control" placeholder="Subject" required>
+                  </div>
+
+                  <div class="form-group">
+                    <textarea class="form-control form-control-lg" rows="4" placeholder="Your Message" name="message" required></textarea>
+                  </div>
+                  <button class="btn btn-lg btn-warning" type="submit">Send it over</button>
+              </form>
+            </div>
+            <div class="col-lg-5">
+              <div class="p-4 border border-secondary" data-overlay="9">
+                <div class="p-relative">
+                  <div class="mb-7">
+                    <h5 class="lead-2 fw-500 text-warning">Company</h5>
+                    <ul class="list-unstyled">
+                      <li class="d-flex align-items-center"><i class="fas fa-map-marker-alt mr-3" style="width: 10px"></i>M100 W Laurel Ln, Etowah, NC, 28729</li>
+                      <li class="d-flex align-items-center"><i class="fas fa-phone mr-3" style="width: 10px"></i>(812) 445-3742</li>
+                      <li class="my-3">Maecenas in odio lacus. Nulla neque diam, molestie quis fringilla in, tempus eget leo.</li>
+                    </ul>
+                  </div>
+                  <div class="mb-7">
+                    <h5 class="lead-2 fw-500 text-warning">Office</h5>
+                    <ul class="list-unstyled">
+                      <li>2265 N 2453rd Rd, Marseilles, IL, 61341 (815) 795-9748</li>
+                      <li>Lee St, Orwigsburg, PA, 17961</li>
+                      <li>637 Lee St, Orwigsburg, PA, 17961</li>
+                      <li>200 Sunset Ct, Hahnville, LA, 70057</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 class="lead-2 fw-500 text-warning">Follow Us</h5>
+                    <div class="social-buttons">
+                      <a class="mr-3 unset social-twitter" href="#"><i class="fab fa-twitter"></i></a>
+                      <a class="mr-3 unset social-facebook" href="#"><i class="fab fa-facebook-f"></i></a>
+                      <a class="mr-3 unset social-dribbble" href="#"><i class="fab fa-dribbble"></i></a>
+                      <a class="mr-3 unset social-instagram" href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- /.content area -->
+
+      <!-- content area -->
+      <div class="map_box">
+        <div class="py-13" data-map="true" data-map-style="custom" data-lat="35.61030245" data-lng="140.11365268" data-marker-lat="35.61030245" data-marker-lng="140.11365268" data-marker-animation="drop" data-marker-title="Office" data-zoom="12"></div>
+      </div>
+      <!-- /.content area -->
+
+    </main>
+    <!-- /.main content -->
+
+    <!-- footer -->
+    <div id="common-footer" th:include="common-footer::common-footer"></div>
+    <!-- /.footer -->
+
+    <!-- sign-in -->
+    <div id="common-sign-in" th:include="common-sign-in::common-sign-in"></div>
+    <!-- /.sign-in -->
+    
+    <!-- sign-up -->
+    <!-- 
+    <div id="common-sign-up" th:include="common-sign-up::common-sign-up"></div>
+     -->
+    <!-- /.sign-up -->
+
+    <!-- offcanvas-cart -->
+    <div id="common-offcanvas-cart" th:include="common-offcanvas-cart::common-offcanvas-cart"></div>
+    <!-- /.offcanvas-cart -->
+
+    <!-- jQuery -->
+    <script src="assets/js/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="assets/js/bootstrap.min.js"></script>
+
+    <!-- Parallax -->
+    <script src="assets/plugins/parallax/parallax.js"></script>
+
+    <!-- User JS -->
+    <script src="assets/js/scripts.js"></script>
+
+    <!-- Main JS -->
+    <script src="assets/js/main.js" id="_mainJS"></script>
+    
+    <!-- Custom JS -->
+    <script src="js/common.js"></script>
+    <script src="js/user.js"></script>
+    
+  </body>
+</html>
